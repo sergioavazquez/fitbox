@@ -4,7 +4,12 @@
 
 Scaling animations, text and visuals can get tricky very fast. Depeding on layout design, scaling everything properly is sometimes time consuming and challenging, specially if the layout was not well thaught through.
 
-## This is the minimal configuration:
+# Install
+```
+npm i react-fitbox
+```
+
+# Minimal Configuration
 
 ```
 <FitBox ratio={.5} size={256}>
@@ -21,7 +26,7 @@ Depending on screen size it will either scale that box up or down to match the r
 By default, `FitBox` will scale content to fit vertically without boundaries. You can also configure it to fit content horizontally and set up independant scale boudaries for width and height.
 
 
-## Here's another example:
+# Advanced example
 
 ```
 <div className='app'>
