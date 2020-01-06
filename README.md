@@ -1,68 +1,103 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FitBox
 
-## Available Scripts
+`FitBox` is a scalable box that allows you to absolutely position elements inside it to compose visuals.
 
-In the project directory, you can run:
+Scaling animations, text and visuals can get tricky very fast. Depeding on layout design, scaling everything properly is sometimes time consuming and challenging, specially if the layout was not well thaught through.
 
-### `yarn start`
+## This is the minimal configuration:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+<FitBox ratio={.5} size={256}>
+  // place content here.
+</FitBox>
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+It creates a square box of `256px` and centers it in the middle of the screen. Inside this box there's absolute positioning `256` x `256` just like if you where inside and `SVG` with a viewport that size.
 
-### `yarn test`
+Since no `container` (more on this later) is used it assumes the entire `height` and `width` of the screen are available.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Depending on screen size it will either scale that box up or down to match the ratio provided. In this example `0.5` or 50%.
 
-### `yarn build`
+By default, `FitBox` will scale content to fit vertically without boundaries. You can also configure it to fit content horizontally and set up independant scale boudaries for width and height.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Here's another example:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+<div className='app'>
+  <Navigation className="nav" />
+  <div ref={containerRef} className="container">
+    <FitBox ratio={.5} size={{ w: 500, h: 360 }} fitWidth container={containerRef} >
+      <span className="text">500px x 360px</span>
+    </FitBox>
+  </div>
+</div>
+```
 
-### `yarn eject`
+IMPORTANT!!! : `.container` element __MUST__ have defined `height` and `width` for this to work.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+.app{
+  height: 100vh;
+  width: 100vw;
+}
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+.nav{
+  height: 45px;
+  width: 100%;
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+.container{
+  height: calc(100% - 45px);
+  width: 100%;
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
 
-## Learn More
+`containerRef` is a reference to the container we want to use as the main box. In this case, everything but the navigation bar.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`size` is now a rect: `{ w: 500, h: 360 }`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+`ratio` is still `.5`.
 
-### Code Splitting
+This means our `500px` box is going to take half of the screen with any screen size.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+> Full HD desktop:
 
-### Analyzing the Bundle Size
+![1920_1080](https://i.imgur.com/lf0kWj0.png "1920 x 1080")
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+> Small phone landscape
 
-### Making a Progressive Web App
+![640_360](https://i.imgur.com/DsGacRf.png "640 x 360")
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
-### Advanced Configuration
+Also `fitWidth` is enabled which means it's not only going to scale vertically but horizontally too.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+If fitting vertically and horizontally at the same time it will always pick the smallest scale.
 
-### Deployment
+> Small phone portrait
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+![360_640](https://i.imgur.com/bD5kQNh.png "360 x 640")
 
-### `yarn build` fails to minify
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+# Props
+
+| prop            | Type                                 | Default   |
+| --------------- |:------------------------------------:| ---------:|
+| `size`          | `Number` or {h:`Number` w:`Number` } |   256     |
+| `ratio`         | `Number` or {h:`Number` w:`Number` } |   0.5     |
+| `fitHeight`     | `bool`                               |   false   |
+| `fitWidth`      | `bool`                               |   true    |
+| `limitHeight`   | {min:`Number`, max:`Number`}         |   0 - Inf |
+| `limitWidth`    | {min:`Number`, max:`Number`}         |   0 - Inf |
+| `container`     | `ref`                                |   false   |
+| `debug`         | `bool`                               |   false   |
+
+
+# Want to try it out?
+
+[Fitbox](https://github.com/sergioavazquez/fitbox)
+
+- `git clone`
+- `yarn install`
+- `yarn start` (demo)

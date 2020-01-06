@@ -1,0 +1,22 @@
+.fitBox__wrapper {
+  position: relative;
+  box-sizing: border-box;
+  transition: opacity .2s ease-in;
+}
+
+.fitBox__main {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+}
+
+.fitBox__main > * {
+  position: absolute;
+  left: 0;
+}
+
+.fitBox__main.debug{
+  border: 1px solid green;
+}
