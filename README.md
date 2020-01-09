@@ -7,6 +7,9 @@
 
 Scaling animations, text and visuals can get tricky very fast. Depeding on layout design, scaling everything properly is sometimes time consuming and challenging, specially if the layout was not well thaught through.
 
+[Live Example Here](https://sergioavazquez.github.io/fitbox-demo/)
+
+
 # Install
 ```
 npm i react-fitbox
