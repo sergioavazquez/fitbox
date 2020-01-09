@@ -150,12 +150,6 @@ var calculateScale = function calculateScale(_ref2) {
   var scale = vScaleW || vScaleH;
 
   if (config.limitHeight && config.limitWidth) {
-    console.log({
-      vScaleH: vScaleH,
-      vScaleW: vScaleW,
-      availableHeight: availableHeight,
-      availableWidth: availableWidth
-    });
     scale = Math.min(vScaleH, vScaleW);
   }
 
