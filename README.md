@@ -1,5 +1,8 @@
 # FitBox
 
+[![npm version](https://badge.fury.io/js/react-fitbox.svg)](https://badge.fury.io/js/react-fitbox)
+![MIT](https://badgen.net/badge/license/MIT/blue)
+
 `FitBox` is a scalable box that allows you to absolutely position elements inside it to compose visuals.
 
 Scaling animations, text and visuals can get tricky very fast. Depeding on layout design, scaling everything properly is sometimes time consuming and challenging, specially if the layout was not well thaught through.
@@ -59,13 +62,16 @@ IMPORTANT!!! : `.container` element __MUST__ have defined `height` and `width` f
 
 ```
 
-`containerRef` is a reference to the container we want to use as the main box. In this case, everything but the navigation bar.
+`containerRef` is a reference to the element we want to use as the outer boundary. In this case, everything but the navigation bar.
+```
+const containerRef = useRef();
+```
 
 `size` is now a rect: `{ w: 500, h: 360 }`
 
 `ratio` is still `.5`.
 
-This means our `500px` box is going to take half of the screen with any screen size.
+This means our `500px` high box, is going to take half of the screen with any screen size.
 
 > Full HD desktop:
 
@@ -76,7 +82,7 @@ This means our `500px` box is going to take half of the screen with any screen s
 ![640_360](https://i.imgur.com/DsGacRf.png "640 x 360")
 
 
-Also `fitWidth` is enabled which means it's not only going to scale vertically but horizontally too.
+In the example above `fitWidth` is also enabled which means it's not only going to scale vertically but horizontally.
 
 If fitting vertically and horizontally at the same time it will always pick the smallest scale.
 
@@ -84,6 +90,9 @@ If fitting vertically and horizontally at the same time it will always pick the 
 
 ![360_640](https://i.imgur.com/bD5kQNh.png "360 x 640")
 
+`limitHeight` and `limitWitdh` can have `min`, `max` boudaries, one of them or none. The limits are expressed in `ratio`s. Meaning the minimum and maximum ratios that can be assigned to the scalable box.
+
+This is useful, for example,  if using a `500px` box with a `1000px` image on it, `max` should be `2` at most to avoid image quality loss when up-scaling.
 
 # Props
 

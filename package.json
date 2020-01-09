@@ -1,6 +1,6 @@
 {
   "name": "react-fitbox",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
@@ -48,6 +48,7 @@
     "url": "https://github.com/sergioavazquez/fitbox.git"
   },
   "author": "Sergio Vazquez",
+  "license": "MIT",
   "keyword": [
     "fit, responsive, box, responsive box, scale, fitbox"
   ]

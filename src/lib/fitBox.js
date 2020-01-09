@@ -111,7 +111,6 @@ const FitBox = ({
 
   const renderChildren = (children) => {
     return React.Children.map(children, child => {
-
       const props = {
         ...child.props,
       };

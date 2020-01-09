@@ -86,7 +86,6 @@ const calculateScale = ({ config, availableHeight, availableWidth }) => {
   }
   let scale = vScaleW || vScaleH;
   if (config.limitHeight && config.limitWidth) {
-    console.log({ vScaleH, vScaleW, availableHeight, availableWidth });
     scale = Math.min(vScaleH, vScaleW);
   }
   scale = scale === false ? 1 : scale;
