@@ -1,6 +1,7 @@
 # FitBox
 
 [![npm version](https://badge.fury.io/js/react-fitbox.svg)](https://badge.fury.io/js/react-fitbox)
+[![Build Status](https://travis-ci.com/sergioavazquez/fitbox.svg?branch=master)](https://travis-ci.com/sergioavazquez/fitbox)
 ![MIT](https://badgen.net/badge/license/MIT/blue)
 
 `FitBox` is a scalable box that allows you to absolutely position elements inside it to compose visuals.
