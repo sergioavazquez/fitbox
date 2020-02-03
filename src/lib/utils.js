@@ -3,11 +3,18 @@ const defaultConfig = {
   ratio: { h: 0.5, w: 0.5 },
   size: { h: 320, w: 320 },
   limitHeight: { min: 0, max: Infinity },
-  limitWidth: { min: 0, max: Infinity }
+  limitWidth: false
 };
 
 const isObject = (value) => {
   return value && typeof value === 'object' && value.constructor === Object;
+}
+
+const fetchPropObject = (prop, value) => {
+  if (value === undefined || value === null) {
+    return defaultConfig[prop];
+  }
+  return isObject(value) ? { h: value.h, w: value.w } : { h: value, w: value };
 }
 
 let lastArgs = null; // args during last call.
@@ -25,26 +32,14 @@ const parseProps = ({ ...args }) => {
   }
   lastArgs = args;
   // parse ratio
-  let r;
-  try {
-    r = isObject(ratio) ? { h: ratio.h, w: ratio.w } : { h: ratio, w: ratio };
-  } catch (e) {
-    console.error("FitBox: `ratio` format is not valid. ")
-    r = defaultConfig.ratio;
-  }
+  const r = fetchPropObject('ratio', ratio);
   // parse size
-  let s;
-  try {
-    s = isObject(size) ? { h: size.h, w: size.w } : { h: size, w: size };
-  } catch (e) {
-    console.error("FitBox: `size` format is not valid. ")
-    s = defaultConfig.size;
-  }
-  // parse limitHeight
+  const s = fetchPropObject('size', size);
+
   let lh = false;
   if (fitHeight !== false) {
-    lh = {};
     if (isObject(limitHeight)) {
+      lh = {};
       const min = Object.keys(limitHeight).includes("min") ? limitHeight.min : defaultConfig.limitHeight.min;
       const max = Object.keys(limitHeight).includes("max") ? limitHeight.max : defaultConfig.limitHeight.max;
       lh = { min, max };
@@ -55,8 +50,8 @@ const parseProps = ({ ...args }) => {
 
   let lw = false;
   if (fitWidth) {
-    lw = {};
     if (isObject(limitWidth)) {
+      lw = {};
       const min = Object.keys(limitWidth).includes("min") ? limitWidth.min : defaultConfig.limitWidth.min;
       const max = Object.keys(limitWidth).includes("max") ? limitWidth.max : defaultConfig.limitWidth.max;
       lw = { min, max };
@@ -92,4 +87,4 @@ const calculateScale = ({ config, availableHeight, availableWidth }) => {
   return scale;
 }
 
-export { parseProps, calculateScale };
+export { parseProps, calculateScale, defaultConfig };

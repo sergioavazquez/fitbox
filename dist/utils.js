@@ -12,14 +12,25 @@ var defaultConfig = {
     min: 0,
     max: Infinity
   },
-  limitWidth: {
-    min: 0,
-    max: Infinity
-  }
+  limitWidth: false
 };
 
 var isObject = function isObject(value) {
   return value && typeof value === 'object' && value.constructor === Object;
+};
+
+var fetchPropObject = function fetchPropObject(prop, value) {
+  if (value === undefined || value === null) {
+    return defaultConfig[prop];
+  }
+
+  return isObject(value) ? {
+    h: value.h,
+    w: value.w
+  } : {
+    h: value,
+    w: value
+  };
 };
 
 var lastArgs = null; // args during last call.
@@ -48,44 +59,14 @@ var parseProps = function parseProps(_ref) {
 
   lastArgs = args; // parse ratio
 
-  var r;
+  var r = fetchPropObject('ratio', ratio); // parse size
 
-  try {
-    r = isObject(ratio) ? {
-      h: ratio.h,
-      w: ratio.w
-    } : {
-      h: ratio,
-      w: ratio
-    };
-  } catch (e) {
-    console.error("FitBox: `ratio` format is not valid. ");
-    r = defaultConfig.ratio;
-  } // parse size
-
-
-  var s;
-
-  try {
-    s = isObject(size) ? {
-      h: size.h,
-      w: size.w
-    } : {
-      h: size,
-      w: size
-    };
-  } catch (e) {
-    console.error("FitBox: `size` format is not valid. ");
-    s = defaultConfig.size;
-  } // parse limitHeight
-
-
+  var s = fetchPropObject('size', size);
   var lh = false;
 
   if (fitHeight !== false) {
-    lh = {};
-
     if (isObject(limitHeight)) {
+      lh = {};
       var min = Object.keys(limitHeight).includes("min") ? limitHeight.min : defaultConfig.limitHeight.min;
       var max = Object.keys(limitHeight).includes("max") ? limitHeight.max : defaultConfig.limitHeight.max;
       lh = {
@@ -100,9 +81,9 @@ var parseProps = function parseProps(_ref) {
   var lw = false;
 
   if (fitWidth) {
-    lw = {};
-
     if (isObject(limitWidth)) {
+      lw = {};
+
       var _min = Object.keys(limitWidth).includes("min") ? limitWidth.min : defaultConfig.limitWidth.min;
 
       var _max = Object.keys(limitWidth).includes("max") ? limitWidth.max : defaultConfig.limitWidth.max;
@@ -157,4 +138,4 @@ var calculateScale = function calculateScale(_ref2) {
   return scale;
 };
 
-export { parseProps, calculateScale };
+export { parseProps, calculateScale, defaultConfig };
