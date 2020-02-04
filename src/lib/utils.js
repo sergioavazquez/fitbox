@@ -6,6 +6,8 @@ const defaultConfig = {
   limitWidth: false
 };
 
+const noLimit = { min: 0, max: Infinity };
+
 const isObject = (value) => {
   return value && typeof value === 'object' && value.constructor === Object;
 }
@@ -56,7 +58,7 @@ const parseProps = ({ ...args }) => {
       const max = Object.keys(limitWidth).includes("max") ? limitWidth.max : defaultConfig.limitWidth.max;
       lw = { min, max };
     } else {
-      lw = defaultConfig.limitWidth;
+      lw = noLimit;
     }
   }
   cachedResult = { ratio: r, size: s, limitHeight: lh, limitWidth: lw };

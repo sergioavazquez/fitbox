@@ -14,6 +14,10 @@ var defaultConfig = {
   },
   limitWidth: false
 };
+var noLimit = {
+  min: 0,
+  max: Infinity
+};
 
 var isObject = function isObject(value) {
   return value && typeof value === 'object' && value.constructor === Object;
@@ -93,7 +97,7 @@ var parseProps = function parseProps(_ref) {
         max: _max
       };
     } else {
-      lw = defaultConfig.limitWidth;
+      lw = noLimit;
     }
   }
 
