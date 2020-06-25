@@ -152,14 +152,14 @@ var FitBox = function FitBox(_ref) {
     return React.Children.map(children, function (child) {
       var props = _objectSpread({}, child.props);
 
-      return React.createElement(child.type, props);
+      return /*#__PURE__*/React.createElement(child.type, props);
     });
   };
 
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: styles.fitBoxWrapper,
     style: fetchWrapperStyle()
-  }, React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: fetchFitBoxClass(),
     style: fetchFitBoxStyle()
   }, renderChildren(children)));

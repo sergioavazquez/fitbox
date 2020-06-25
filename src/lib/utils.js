@@ -21,7 +21,7 @@ const fetchPropObject = (prop, value) => {
 
 let lastArgs = null; // args during last call.
 let cachedResult = null; // last result (parsed props)
-const parseProps = ({ ...args }) => {
+const parseProps = ({ ...args } = {}) => {
   const { ratio, size, limitHeight, limitWidth, fitHeight, fitWidth } = args;
   let shouldUpdate = true;
   // Cache results

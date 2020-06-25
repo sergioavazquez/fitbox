@@ -1,4 +1,3 @@
-import _extends from "@babel/runtime/helpers/esm/extends";
 var defaultConfig = {
   ratio: {
     h: 0.5,
@@ -41,8 +40,9 @@ var lastArgs = null; // args during last call.
 
 var cachedResult = null; // last result (parsed props)
 
-var parseProps = function parseProps(_ref) {
-  var args = _extends({}, _ref);
+var parseProps = function parseProps() {
+  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+      args = Object.assign({}, _ref);
 
   var ratio = args.ratio,
       size = args.size,
